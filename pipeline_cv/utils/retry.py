@@ -6,7 +6,7 @@ from sagemaker.workflow.retry import (
 )
 
 
-def retry_policies():
+def get_retry_policies():
     retry_policies = [
         StepRetryPolicy(
             exception_types=[
