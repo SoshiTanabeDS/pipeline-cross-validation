@@ -35,7 +35,6 @@ def get_step_model(
     
     inputs = CreateModelInput(
         instance_type=model_instance_type,
-    #     accelerator_type="ml.eia1.medium",
     )
 
     step_create_model = CreateModelStep(

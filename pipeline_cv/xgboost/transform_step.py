@@ -7,7 +7,7 @@ from pipeline_cv.utils import get_retry_policies
 def _get_transformer(
     step_create_model,
     model_instance_type,
-    transform_path
+    dst_test_path
 ):
 
     transformer = Transformer(
@@ -15,7 +15,7 @@ def _get_transformer(
         instance_type=model_instance_type,
         instance_count=1,
         assemble_with="Line",
-        output_path=transform_path
+        output_path=dst_test_path
     )
 
     return transformer
@@ -24,15 +24,15 @@ def _get_transformer(
 def get_step_transform(
     step_create_model,
     model_instance_type,
-    transform_path,
+    dst_test_path,
     transform_name,
-    s3_batch_path
+    src_test_path
 ):
 
     transformer=_get_transformer(
         step_create_model,
         model_instance_type,
-        transform_path,
+        dst_test_path,
     )
 
 
@@ -40,7 +40,7 @@ def get_step_transform(
         name=transform_name,
         transformer=transformer,
         inputs=TransformInput(
-            data=s3_batch_path,
+            data=src_test_path,
             content_type="csv",
             split_type="Line",
         ),

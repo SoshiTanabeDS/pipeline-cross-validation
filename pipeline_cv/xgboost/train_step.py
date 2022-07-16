@@ -10,14 +10,14 @@ from pipeline_cv.xgboost import get_xgboost_image_uri
 def _get_xgboost_estimator(
     training_instance_type,
     hyperparameters,
-    model_path
+    dst_model_path
 ):
     xgb_train = Estimator(
         image_uri=get_xgboost_image_uri(training_instance_type),
         hyperparameters=hyperparameters,
         instance_type=training_instance_type,
         instance_count=1,
-        output_path=model_path,
+        output_path=dst_model_path,
         role=get_execution_role(),
     )
 
@@ -28,8 +28,8 @@ def get_step_train(
     train_name,
     training_instance_type,
     hyperparameters,
-    model_path,
-    s3_data_path
+    dst_model_path,
+    src_train_path
 ):
 
     step_train = TrainingStep(
@@ -37,15 +37,15 @@ def get_step_train(
         estimator=_get_xgboost_estimator(
             training_instance_type,
             hyperparameters,
-            model_path
+            dst_model_path
         ),
         inputs={
             "train": TrainingInput(
-                s3_data=f"{s3_data_path}/train/",
+                s3_data=f"{src_train_path}/train/",
                 content_type="text/csv"
             ),
             "validation": TrainingInput(
-                s3_data=f"{s3_data_path}/validation/",
+                s3_data=f"{src_train_path}/validation/",
                 content_type="text/csv"
             )
         },
