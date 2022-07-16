@@ -4,7 +4,7 @@ from pipeline_cv.xgboost import get_step_transform
 
 
 def create_steps(
-    train_name,
+    task_name,
     src_train_path,
     src_test_path,
     dst_model_path,
@@ -14,7 +14,7 @@ def create_steps(
     hyperparameters,
 ):
 
-    train_name = train_name.replace("-", "_")
+    train_name = task_name.replace("-", "_")
     model_name = train_name.replace("_", "-")
     transform_name = train_name + "_test"
 
