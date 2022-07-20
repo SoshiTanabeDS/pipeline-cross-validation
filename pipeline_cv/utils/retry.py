@@ -20,8 +20,8 @@ def get_retry_policies():
         SageMakerJobStepRetryPolicy(
             exception_types=[SageMakerJobExceptionTypeEnum.RESOURCE_LIMIT],
             expire_after_mins=1440,
-            interval_seconds=60,
-            backoff_rate=2.0
+            interval_seconds=300,
+            backoff_rate=1.2
         ),
         SageMakerJobStepRetryPolicy(
             failure_reason_types=[
