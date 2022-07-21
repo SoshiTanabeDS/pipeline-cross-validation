@@ -4,15 +4,21 @@ from sagemaker.model import Model
 from sagemaker.session import Session
 from sagemaker.workflow.steps import CreateModelStep
 
-from pipeline_cv.xgboost import get_xgboost_image_uri
+from pipeline_cv.utils import get_image_uri
 
 
 def _get_model(
     training_instance_type,
     step_train,
 ):
+    image_uri = get_image_uri(
+            "pytorch",
+            training_instance_type,
+            "1.8.1"
+    )
+
     model = Model(
-        image_uri=get_xgboost_image_uri(training_instance_type),
+        image_uri=image_uri,
         model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
         sagemaker_session=Session(),
         role=get_execution_role(),
@@ -26,7 +32,6 @@ def get_step_model(
     model_name,
     model_instance_type
 ):
-
     model = _get_model(
         training_instance_type,
         step_train
