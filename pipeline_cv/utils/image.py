@@ -2,15 +2,16 @@ from sagemaker.session import Session
 from sagemaker.image_uris import retrieve
 
 
-def get_xgboost_image_uri(
+def get_image_uri(
+    framework,
     training_instance_type,
-    version="1.2-2"
+    version
 ):
 
     sagemaker_session = Session()
 
     image_uri = retrieve(
-        framework="xgboost",
+        framework=framework,
         region=sagemaker_session.boto_region_name,
         version=version,
         py_version="py3",

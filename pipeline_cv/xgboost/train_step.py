@@ -3,8 +3,7 @@ from sagemaker.estimator import Estimator
 from sagemaker.inputs import TrainingInput
 from sagemaker.workflow.steps import TrainingStep
 
-from pipeline_cv.utils import get_retry_policies
-from pipeline_cv.xgboost import get_xgboost_image_uri
+from pipeline_cv.utils import get_retry_policies, get_image_uri
 
 
 def _get_xgboost_estimator(
@@ -12,8 +11,14 @@ def _get_xgboost_estimator(
     hyperparameters,
     dst_model_path
 ):
+    image_uri = get_image_uri(
+            "xgboost",
+            training_instance_type,
+            "py3"
+    )
+
     xgb_train = Estimator(
-        image_uri=get_xgboost_image_uri(training_instance_type),
+        image_uri=image_uri,
         hyperparameters=hyperparameters,
         instance_type=training_instance_type,
         instance_count=1,
