@@ -14,7 +14,7 @@ def _get_xgboost_estimator(
     image_uri = get_image_uri(
             "xgboost",
             training_instance_type,
-            "py3"
+            "1.2-0"
     )
 
     xgb_train = Estimator(
