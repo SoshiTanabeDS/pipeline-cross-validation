@@ -15,7 +15,8 @@ def _get_pytorch_estimator(
     image_uri = get_image_uri(
             "pytorch",
             training_instance_type,
-            "1.8.0"
+            "1.8.1",
+            image_scope="training",
     )
 
     pytorch_estimator = PyTorch(
