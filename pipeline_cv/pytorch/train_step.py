@@ -15,7 +15,7 @@ def _get_pytorch_estimator(
     image_uri = get_image_uri(
             "pytorch",
             training_instance_type,
-            "1.8.1"
+            "1.8.0"
     )
 
     pytorch_estimator = PyTorch(
@@ -24,12 +24,13 @@ def _get_pytorch_estimator(
         role=get_execution_role(),
         train_instance_type=training_instance_type,
         train_instance_count=1,
-        volume_size = volume_size,
+        volume_size=volume_size,
         hyperparameters=hyperparameters,
         output_path=dst_model_path,
     )
 
     return pytorch_estimator
+
 
 def get_step_train(
     entry_point,
