@@ -1,6 +1,6 @@
 from pipeline_cv.pytorch import get_step_train
 from pipeline_cv.pytorch import get_step_model
-from pipeline_cv.pytorch import get_step_transform
+# from pipeline_cv.pytorch import get_step_transform
 
 
 def create_steps(
@@ -36,18 +36,18 @@ def create_steps(
         model_instance_type
     )
 
-    step_transform = get_step_transform(
-        step_create_model,
-        model_instance_type,
-        dst_test_path,
-        transform_name,
-        src_test_path
-    )
+    # step_transform = get_step_transform(
+    #     step_create_model,
+    #     model_instance_type,
+    #     dst_test_path,
+    #     transform_name,
+    #     src_test_path
+    # )
 
     steps = [
         step_train,
         step_create_model,
-        step_transform,
+        # step_transform,
     ]
 
     return steps
