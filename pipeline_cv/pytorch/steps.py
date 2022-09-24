@@ -1,6 +1,6 @@
 from pipeline_cv.pytorch import get_step_train
 from pipeline_cv.pytorch import get_step_model
-# from pipeline_cv.pytorch import get_step_transform
+from pipeline_cv.pytorch import get_step_transform
 
 
 def create_steps(
@@ -13,6 +13,7 @@ def create_steps(
     training_instance_type,
     model_instance_type,
     hyperparameters,
+    is_transform=True,
 ):
 
     train_name = task_name.replace("-", "_")
@@ -36,18 +37,21 @@ def create_steps(
         model_instance_type
     )
 
-    # step_transform = get_step_transform(
-    #     step_create_model,
-    #     model_instance_type,
-    #     dst_test_path,
-    #     transform_name,
-    #     src_test_path
-    # )
+    if is_transform:
+        step_transform = get_step_transform(
+            step_create_model,
+            model_instance_type,
+            dst_test_path,
+            transform_name,
+            src_test_path
+        )
+    else:
+        step_transform = None
 
     steps = [
         step_train,
         step_create_model,
-        # step_transform,
+        step_transform,
     ]
 
     return steps
